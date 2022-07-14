@@ -35,7 +35,10 @@ class _HomepageState extends State<Homepage> {
                    teamMate: defaultList[index],
                    onTap: () {
                      defaultList[index].isSelected = !defaultList[index].isSelected;
-                     StoreProvider.of<AppState>(context).dispatch(ActionAdd(defaultList[index]));
+
+                     defaultList[index].isSelected ?
+                     StoreProvider.of<AppState>(context).dispatch(ActionAdd(defaultList[index])) :
+                     StoreProvider.of<AppState>(context).dispatch(ActionRemove(defaultList[index]));
                    },
                  )
        ),

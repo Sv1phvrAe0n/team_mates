@@ -22,7 +22,7 @@ class TeamMateModel extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: teamMate.isSelected ? 50 : 40,
-                  backgroundColor: Colors.greenAccent,
+                  backgroundColor: teamMate.isAsyncTimePassed ? Colors.orange : Colors.greenAccent,
                   child: CircleAvatar(
                     radius: 40,
                       backgroundImage: teamMate.picture),

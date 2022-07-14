@@ -25,10 +25,19 @@ AppState updateReducer(AppState state, dynamic action) {
   if(action is ActionRemove) {
 
     state.teamMates.map((e) => e.isSelected == action.removedMate.isSelected ? action.removedMate.isSelected = false : null).toList();
+    state.teamMates.map((e) => e.name == action.removedMate.name ? e.isAsyncTimePassed = false : null).toList();
 
     print('ActionRemove');
     return AppState(
         teamMates: state.teamMates.where((mate) => mate.name != action.removedMate.name).toList()
+    );
+  }
+
+  if(action is ActionAsyncTimePassed) {
+   print('ActionAsyncTimePassed');
+    state.teamMates.map((e) => e.name == action.stableMate.name ? e.isAsyncTimePassed = true : null).toList();
+    return AppState(
+      teamMates: state.teamMates
     );
   }
 

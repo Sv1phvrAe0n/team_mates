@@ -10,10 +10,9 @@ Stream<dynamic> actions, EpicStore<AppState> store
 ) async* {
   await for (var action in actions) {
     if(action is ActionAdd) {
-      Future.delayed(
-        const Duration(seconds: 3),
-            () => print('Delayed ActionAdd'),
-      );
+       await Future.delayed(const Duration(seconds:3));
+       yield ActionAsyncTimePassed(store.state.teamMates.singleWhere((element) => element.name == action.addedMate.name));
+
     }
     if(action is ActionRemove) {
       Future.delayed(

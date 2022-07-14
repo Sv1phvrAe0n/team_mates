@@ -12,6 +12,11 @@ class ActionAdd{
 
 class ActionRemove{
   final Mate removedMate;
-
   ActionRemove(this.removedMate);
 }
+
+class ActionAsyncTimePassed{
+  final Mate stableMate;
+  ActionAsyncTimePassed(this.stableMate);
+}
+

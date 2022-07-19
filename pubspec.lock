@@ -95,6 +95,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
+  memoize:
+    dependency: transitive
+    description:
+      name: memoize
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   meta:
     dependency: transitive
     description:
@@ -123,6 +130,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.15.1"
+  reselect:
+    dependency: "direct main"
+    description:
+      name: reselect
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   rxdart:
     dependency: transitive
     description:

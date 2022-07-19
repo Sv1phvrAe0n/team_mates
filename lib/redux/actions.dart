@@ -20,3 +20,8 @@ class ActionAsyncTimePassed{
   ActionAsyncTimePassed(this.stableMate);
 }
 
+class ActionListUpdate{
+  final List<Mate> defaultList;
+  final List<Mate> listUpdate;
+  ActionListUpdate(this.defaultList, this.listUpdate);
+}

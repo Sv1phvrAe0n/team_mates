@@ -5,6 +5,7 @@ import 'package:my_team/model/teammate_model.dart';
 import 'package:my_team/redux/actions.dart';
 import '../model/class_mate.dart';
 import '../redux/appstate.dart';
+import '../redux/selector.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -15,8 +16,10 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
+
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
    child: Center(
      child: StoreConnector<AppState, List<Mate>>(
@@ -25,47 +28,57 @@ class _HomepageState extends State<Homepage> {
        Padding(
          padding: const EdgeInsets.all(16.0),
          child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-           children: [
-             Expanded(
-               child: ListView.builder(
-                 shrinkWrap: true,
-                 itemBuilder: (context, index) => ListTile(
-                 title: TeamMateModel(
-                   teamMate: defaultList[index],
-                   onTap: () {
-                     defaultList[index].isSelected = !defaultList[index].isSelected;
-
-                     defaultList[index].isSelected ?
-                     StoreProvider.of<AppState>(context).dispatch(ActionAdd(defaultList[index])) :
-                     StoreProvider.of<AppState>(context).dispatch(ActionRemove(defaultList[index]));
-                   },
-                 )
+         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+         children: [
+           Expanded(
+             child: ListView.builder(
+               shrinkWrap: true,
+               itemBuilder: (context, index) => ListTile(
+               title: TeamMateModel(
+                 teamMate: defaultList[index],
+                 onTap: () {
+                   defaultList[index].isSelected = !defaultList[index].isSelected;
+                   defaultList[index].isSelected ?
+                   StoreProvider.of<AppState>(context).dispatch(ActionAdd(defaultList[index])) :
+                   StoreProvider.of<AppState>(context).dispatch(ActionRemove(defaultList[index]));
+                 },
+               )
        ),
-                 itemCount: defaultList.length,
-               )),
-           const VerticalDivider(
-             thickness: 2,
-           ),
-             Expanded(
-               child: ListView.builder(itemBuilder: (context, index) => ListTile(
-                   title: Row(
-                     children: [
-                       TeamMateModel(teamMate:
-                         dynamicMates.where((e) => e.isSelected).toList()[index],
-                         onTap: () {
-                           StoreProvider.of<AppState>(context).dispatch(ActionRemove(dynamicMates.where((e) => e.isSelected).toList()[index]));
-                         },
-                       ),
-                     ],
-                   )
-               ),
-                 itemCount: dynamicMates.where((e) => e.isSelected).length,
-               ),
+               itemCount: defaultList.length,
+             )),
+         Column(
+           children: [
+             TextButton(
+               onPressed: () {
+                 StoreProvider.of<AppState>(context).dispatch(ActionListUpdate(defaultList, dynamicMates));
+               },
+               child: const Text('mana'),
              ),
-
+             const VerticalDivider(
+               thickness: 2,
+             ),
            ],
          ),
+           Expanded(
+             child: ListView.builder(
+               itemBuilder: (context, index) => ListTile(
+                 title: Row(
+                   children: [
+                     TeamMateModel(teamMate:
+                       dynamicMates.where((e) => e.isSelected).toList()[index],
+                       onTap: () {
+                         StoreProvider.of<AppState>(context).dispatch(ActionRemove(dynamicMates.where((e) => e.isSelected).toList()[index]));
+                       },
+                     ),
+                   ],
+                 )
+             ),
+               itemCount: dynamicMates.where((e) => e.isSelected).length,
+             ),
+           ),
+
+         ],
+           ),
        ),
      ),
    ),
